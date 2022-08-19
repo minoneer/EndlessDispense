@@ -1,5 +1,5 @@
 name: ${project.name}
-version: ${project.version}-b${build.number}
+version: ${project.version}
 main: me.minoneer.bukkit.endlessdispense.EndlessDispense
 author: minoneer
 description: ${project.description}
