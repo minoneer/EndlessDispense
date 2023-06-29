@@ -1,17 +1,17 @@
 package me.minoneer.bukkit.endlessdispense
 
 import org.bukkit.ChatColor
+import org.bukkit.ChatColor.DARK_BLUE
 import org.bukkit.Material
 import org.bukkit.Tag
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 import org.bukkit.block.Sign
+import org.bukkit.block.data.type.WallHangingSign
 import org.bukkit.block.data.type.WallSign
-
-import java.util.EnumSet
-
-import org.bukkit.ChatColor.DARK_BLUE
+import org.bukkit.block.sign.Side
 import org.bukkit.event.block.SignChangeEvent
+import java.util.*
 
 private val SIGN_LOCATIONS: Collection<BlockFace> = EnumSet.of(
     BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.DOWN
@@ -27,7 +27,8 @@ val Block.isSupplySign: Boolean
     get() {
         return if (this.isSign) {
             val sign = state as Sign
-            sign.getLine(0) == COLORED_SUPPLY_KEY
+            sign.getSide(Side.FRONT).getLine(0) == COLORED_SUPPLY_KEY ||
+                    sign.getSide(Side.BACK).getLine(0) == COLORED_SUPPLY_KEY
         } else {
             false
         }
@@ -60,6 +61,15 @@ fun Block.getAttachedTo(): Block {
             signBlock.getRelative(BlockFace.UP)
         }
 
+        signBlock.isWallHangingSign -> {
+            val blockData = signBlock.blockData as WallHangingSign
+            signBlock.getRelative(blockData.facing.oppositeFace)
+        }
+
+        signBlock.isCeilingHangingSign -> {
+            signBlock.getRelative(BlockFace.UP)
+        }
+
         else -> {
             throw IllegalArgumentException("Block is not a sign: $this")
         }
@@ -69,6 +79,8 @@ fun Block.getAttachedTo(): Block {
 private val Block.isSign: Boolean get() = Tag.SIGNS.isTagged(type)
 private val Block.isWallSign: Boolean get() = Tag.WALL_SIGNS.isTagged(type)
 private val Block.isStandingSign: Boolean get() = Tag.STANDING_SIGNS.isTagged(type)
+private val Block.isCeilingHangingSign: Boolean get() = Tag.CEILING_HANGING_SIGNS.isTagged(type)
+private val Block.isWallHangingSign: Boolean get() = Tag.WALL_HANGING_SIGNS.isTagged(type)
 
 fun String.stripColor(): String {
     val colorCoded = ChatColor.translateAlternateColorCodes('&', this)

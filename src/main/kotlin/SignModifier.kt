@@ -1,6 +1,7 @@
 package me.minoneer.bukkit.endlessdispense
 
 import org.bukkit.block.Block
+import org.bukkit.block.Sign
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -25,6 +26,7 @@ class SignModifier(private val messages: Messages, private val refiller: Refille
                 val inventory = (dispensingBlock.state as InventoryHolder).inventory
                 refiller.refillInventory(inventory)
                 player.sendMessage(messages.createSuccess)
+                (event.block.blockData as Sign).isWaxed = true
             } else {
                 player.sendMessage(messages.createWrongBlock)
                 signBlock.breakNaturally()
