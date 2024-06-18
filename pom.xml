@@ -5,7 +5,7 @@
 
     <groupId>me.minoneer.bukkit</groupId>
     <artifactId>endlessdispense</artifactId>
-    <version>1.9</version>
+    <version>1.10-SNAPSHOT</version>
     <name>EndlessDispense</name>
     <description>Infinite dispensers and droppers via better supply signs</description>
 
