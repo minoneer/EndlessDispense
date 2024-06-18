@@ -7,6 +7,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.event.player.PlayerSignOpenEvent
 
 class BlockProtection(private val messages: Messages) : Listener {
 
@@ -39,6 +40,16 @@ class BlockProtection(private val messages: Messages) : Listener {
         }
     }
 
+    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    fun onSignEdit(event: PlayerSignOpenEvent) {
+        val player = event.player
+        val block = event.sign.block
+        if (block.isSupplySign && !player.hasPermission(EndlessDispense.CREATE)) {
+            event.isCancelled = true
+            player.sendMessage(messages.denyEditSign)
+        }
+    }
+
     @EventHandler
     fun onSignChange(event: SignChangeEvent) {
         val player = event.player
@@ -46,7 +57,6 @@ class BlockProtection(private val messages: Messages) : Listener {
 
         if (firstLine.equals(SUPPLY_KEY, ignoreCase = true) && !player.hasPermission(EndlessDispense.CREATE)) {
             event.isCancelled = true
-            event.block.breakNaturally()
             player.sendMessage(messages.denyCreateSign)
         }
     }

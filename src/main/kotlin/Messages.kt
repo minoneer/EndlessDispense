@@ -30,6 +30,12 @@ class Messages(path: Path) : AbstractConfig(wrapConfig(path)) {
         translateColorCodes = true
     )
 
+    val denyEditSign: String by config(
+        path = "denied.edit-sign",
+        default = "&cYou are not allowed to edit supply signs.",
+        translateColorCodes = true
+    )
+
     val createSuccess: String by config(
         path = "create.success",
         default = "&eSupply sign was created successfully.",

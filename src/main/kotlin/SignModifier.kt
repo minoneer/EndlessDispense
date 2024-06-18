@@ -11,7 +11,7 @@ import org.bukkit.inventory.InventoryHolder
 
 class SignModifier(private val messages: Messages, private val refiller: Refiller) : Listener {
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onSignChange(event: SignChangeEvent) {
         val player = event.player
         val signBlock = event.block
@@ -26,7 +26,10 @@ class SignModifier(private val messages: Messages, private val refiller: Refille
                 val inventory = (dispensingBlock.state as InventoryHolder).inventory
                 refiller.refillInventory(inventory)
                 player.sendMessage(messages.createSuccess)
-                (event.block.blockData as Sign).isWaxed = true
+                (event.block.blockData as Sign).apply {
+                    isWaxed = true
+                    update()
+                }
             } else {
                 player.sendMessage(messages.createWrongBlock)
                 signBlock.breakNaturally()
