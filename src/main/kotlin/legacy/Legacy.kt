@@ -12,7 +12,7 @@ import org.bukkit.block.data.type.WallHangingSign
 import org.bukkit.block.data.type.WallSign
 import org.bukkit.block.sign.Side
 import org.bukkit.block.sign.SignSide
-import org.bukkit.entity.Player
+import org.bukkit.command.CommandSender
 import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.persistence.PersistentDataType
 
@@ -27,25 +27,27 @@ object Legacy {
 
     internal fun checkAndMigrateDispenser(
         block: Block,
-        state: TileState
+        state: TileState,
+        sender: CommandSender? = null
     ): Boolean {
         val signBlock = block.getSupplySignBlock()
         if (signBlock != null) {
             applyMetadata(state)
             signBlock.type = Material.AIR
+            sender?.sendMessage(messages.migrated)
             return true
         }
         return false
     }
 
-    internal fun checkAndMigrateSupplySign(signBlock: Block, player: Player): Boolean {
+    internal fun checkAndMigrateSupplySign(signBlock: Block, sender: CommandSender): Boolean {
         if (!signBlock.isSupplySign) return false
         val dispenserBlock = signBlock.getAttachedTo()
         if (!dispenserBlock.isDispenser) return false
         val state = dispenserBlock.state as Container
         applyMetadata(state)
         signBlock.type = Material.AIR
-        player.sendMessage(messages.migrated)
+        sender.sendMessage(messages.migrated)
         return true
     }
 

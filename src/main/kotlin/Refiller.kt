@@ -26,7 +26,7 @@ class Refiller : Listener {
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun onBlockBreak(event: BlockBreakEvent) {
         val block = event.block
-        if (block.isEndless()) {
+        if (block.isEndless(event.player)) {
             resetInventoryStacks(block)
             event.isDropItems = false
         }

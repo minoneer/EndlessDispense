@@ -15,7 +15,7 @@ class BlockProtection(private val messages: Messages) : Listener {
         if (inventoryHolder is BlockState) {
             val block = inventoryHolder.block
 
-            if (block.isEndless()) {
+            if (block.isEndless(event.player)) {
                 event.isCancelled = true
                 event.player.sendActionBar(messages.denyInventoryAccess)
             }
@@ -28,7 +28,7 @@ class BlockProtection(private val messages: Messages) : Listener {
         val player = event.player
 
         if (!player.hasPermission(EndlessDispense.DESTROY)) {
-            if (block.isEndless()) {
+            if (block.isEndless(player)) {
                 event.isCancelled = true
                 player.sendActionBar(messages.denyDestroySupplier)
             }
