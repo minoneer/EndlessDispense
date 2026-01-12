@@ -11,6 +11,7 @@ import org.bukkit.block.*
 import org.bukkit.block.data.type.WallHangingSign
 import org.bukkit.block.data.type.WallSign
 import org.bukkit.block.sign.Side
+import org.bukkit.block.sign.SignSide
 import org.bukkit.entity.Player
 import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.persistence.PersistentDataType
@@ -58,8 +59,8 @@ object Legacy {
         get() {
             return if (this.isSign) {
                 val sign = state as Sign
-                sign.getSide(Side.FRONT).getLine(0) == COLORED_SUPPLY_KEY
-                        || sign.getSide(Side.BACK).getLine(0) == COLORED_SUPPLY_KEY
+                sign.getSide(Side.FRONT).getFirstLine() == COLORED_SUPPLY_KEY
+                        || sign.getSide(Side.BACK).getFirstLine() == COLORED_SUPPLY_KEY
             } else {
                 false
             }
@@ -115,5 +116,9 @@ object Legacy {
             .serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(this))
     }
 
+    @Suppress("DEPRECATION")
     internal fun SignChangeEvent.getFirstLine(): String = getLine(0) ?: ""
+
+    @Suppress("DEPRECATION")
+    private fun SignSide.getFirstLine(): String = getLine(0)
 }
