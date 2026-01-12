@@ -2,6 +2,7 @@ package me.minoneer.bukkit.endlessdispense.legacy
 
 import me.minoneer.bukkit.endlessdispense.EndlessDispense
 import me.minoneer.bukkit.endlessdispense.Messages
+import me.minoneer.bukkit.endlessdispense.PluginConfig
 import me.minoneer.bukkit.endlessdispense.isDispenser
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
@@ -19,6 +20,7 @@ import org.bukkit.persistence.PersistentDataType
 object Legacy {
 
     internal lateinit var messages: Messages
+    internal lateinit var config: PluginConfig
     private val SIGN_LOCATIONS: Collection<BlockFace> = setOf(
         BlockFace.NORTH, BlockFace.EAST, BlockFace.SOUTH, BlockFace.WEST, BlockFace.DOWN
     )
@@ -30,17 +32,16 @@ object Legacy {
         state: TileState,
         sender: CommandSender? = null
     ): Boolean {
-        val signBlock = block.getSupplySignBlock()
-        if (signBlock != null) {
-            applyMetadata(state)
-            signBlock.type = Material.AIR
-            sender?.sendMessage(messages.migrated)
-            return true
-        }
-        return false
+        if (!config.migrateLegacy) return false
+        val signBlock = block.getSupplySignBlock() ?: return false
+        applyMetadata(state)
+        signBlock.type = Material.AIR
+        sender?.sendMessage(messages.migrated)
+        return true
     }
 
     internal fun checkAndMigrateSupplySign(signBlock: Block, sender: CommandSender): Boolean {
+        if (!config.migrateLegacy) return false
         if (!signBlock.isSupplySign) return false
         val dispenserBlock = signBlock.getAttachedTo()
         if (!dispenserBlock.isDispenser) return false

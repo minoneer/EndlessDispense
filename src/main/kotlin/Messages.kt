@@ -57,4 +57,5 @@ class Messages(path: Path) : AbstractConfig(wrapConfig(path)) {
         path = "migration.success",
         default = "<yellow>[EndlessDispense] <white>Legacy dispenser migrated to modern system. Sign removed."
     )
+
 }

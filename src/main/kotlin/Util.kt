@@ -12,6 +12,7 @@ val Block.isDispenser: Boolean
     get() = (type == Material.DISPENSER || type == Material.DROPPER)
 
 fun Block.isEndless(sender: CommandSender? = null): Boolean {
+    if (!isDispenser) return false
     val state = this.state as? TileState ?: return false
     val container = state.persistentDataContainer
 

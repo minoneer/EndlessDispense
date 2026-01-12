@@ -17,7 +17,9 @@ class EndlessDispense : JavaPlugin() {
 
     override fun onEnable() {
         SUPPLY_KEY = NamespacedKey(this, "infinite_supply")
+        val config = loadConfig()
         val messages = loadMessages()
+        Legacy.config = config
         Legacy.messages = messages
         val refiller = Refiller()
         registerEvents(messages, refiller)
@@ -27,6 +29,13 @@ class EndlessDispense : JavaPlugin() {
     private fun loadMessages(): Messages {
         val path = dataFolder.toPath().resolve("messages.yml")
         val config = Messages(path)
+        config.saveDefaults()
+        config.reloadConfig()
+        return config
+    }
+
+    private fun loadConfig(): PluginConfig {
+        val config = PluginConfig(this)
         config.saveDefaults()
         config.reloadConfig()
         return config
