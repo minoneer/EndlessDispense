@@ -21,6 +21,7 @@
         <maven.compiler.release>21</maven.compiler.release>
         <paper.version>1.20.6-R0.1-SNAPSHOT</paper.version>
         <kotlin.version>2.3.0</kotlin.version>
+        <kraftlin.version>0.3.0</kraftlin.version>
     </properties>
 
     <build>
@@ -56,35 +57,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.1</version>
-                <configuration>
-                    <minimizeJar>false</minimizeJar>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <artifactSet>
-                        <includes>
-                            <include>de.devsylum.kconfig:bukkit</include>
-                            <include>de.devsylum.kconfig:common</include>
-                        </includes>
-                    </artifactSet>
-                    <relocations>
-                        <relocation>
-                            <pattern>de.devsylum.kconfig</pattern>
-                            <shadedPattern>me.minoneer.bukkit.endlessdispense.kconfig</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -130,7 +102,7 @@
         <dependency>
             <groupId>io.github.kraftlin</groupId>
             <artifactId>kraftlin-config-paper</artifactId>
-            <version>0.3.0</version>
+            <version>${kraftlin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>

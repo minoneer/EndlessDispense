@@ -6,3 +6,4 @@ description: ${project.description}
 api-version: '1.20.6'
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:${kotlin.version}
+  - io.github.kraftlin:kraftlin-config-paper:${kraftlin.version}
