@@ -40,6 +40,8 @@ class BlockProtection(private val messages: Messages) : Listener {
         }
     }
 
+    // Protect legacy supply signs while we still use them for conversion
+
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
     fun onSignEdit(event: PlayerOpenSignEvent) {
         val player = event.player

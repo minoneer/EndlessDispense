@@ -33,7 +33,7 @@ class EndlessDispense : JavaPlugin() {
         val plugin = this
         with(Bukkit.getPluginManager()) {
             registerEvents(refiller, plugin)
-            registerEvents(SignModifier(messages, refiller), plugin)
+            registerEvents(SignModifier(messages), plugin)
             registerEvents(BlockProtection(messages), plugin)
         }
         registerKraftlinCommands(SupplyCommand(messages).buildCommand())
