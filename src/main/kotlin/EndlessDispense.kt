@@ -1,15 +1,15 @@
 package me.minoneer.bukkit.endlessdispense
 
+import io.github.kraftlin.command.paper.registerKraftlinCommands
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
-import org.bukkit.permissions.Permission
 import org.bukkit.plugin.java.JavaPlugin
 
 class EndlessDispense : JavaPlugin() {
 
     companion object {
-        val CREATE = Permission("endlessdispense.create")
-        val DESTROY = Permission("endlessdispense.destroy")
+        const val CREATE = "endlessdispense.create"
+        const val DESTROY = "endlessdispense.destroy"
         lateinit var SUPPLY_KEY: NamespacedKey
     }
 
@@ -36,6 +36,7 @@ class EndlessDispense : JavaPlugin() {
             registerEvents(SignModifier(messages, refiller), plugin)
             registerEvents(BlockProtection(messages), plugin)
         }
+        registerKraftlinCommands(SupplyCommand(messages).buildCommand())
     }
 
     override fun onDisable() {

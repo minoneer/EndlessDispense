@@ -1,6 +1,5 @@
 package me.minoneer.bukkit.endlessdispense
 
-import org.bukkit.block.Block
 import org.bukkit.block.Sign
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -24,7 +23,7 @@ class SignModifier(private val messages: Messages, private val refiller: Refille
             if (dispensingBlock.isDispenser) {
                 event.setLine(0, COLORED_SUPPLY_KEY)
                 val inventory = (dispensingBlock.state as InventoryHolder).inventory
-                refiller.refillInventory(inventory)
+                Refiller.refillInventory(inventory)
                 player.sendMessage(messages.createSuccess)
                 (event.block.blockData as Sign).apply {
                     isWaxed = true
@@ -41,22 +40,9 @@ class SignModifier(private val messages: Messages, private val refiller: Refille
     fun onBlockBreak(event: BlockBreakEvent) {
         val block = event.block
         if (block.isSupplySign) {
-            resetBlockStacks(block.getAttachedTo())
+            Refiller.resetInventoryStacks(block.getAttachedTo())
         } else if (block.isEndless()) {
-            resetBlockStacks(block)
-        }
-    }
-
-    private fun resetBlockStacks(block: Block) {
-        val blockState = block.state
-        if (blockState is InventoryHolder) {
-            val inventory = blockState.inventory
-            for (i in 0 until inventory.size) {
-                val itemStack = inventory.getItem(i)
-                if (itemStack != null && itemStack.amount > itemStack.maxStackSize) {
-                    itemStack.amount = itemStack.maxStackSize
-                }
-            }
+            Refiller.resetInventoryStacks(block)
         }
     }
 }

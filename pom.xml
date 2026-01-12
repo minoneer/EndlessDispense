@@ -105,6 +105,11 @@
             <version>${kraftlin.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.github.kraftlin</groupId>
+            <artifactId>kraftlin-command-paper</artifactId>
+            <version>${kraftlin.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>
             <version>${kotlin.version}</version>
