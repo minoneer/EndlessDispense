@@ -38,7 +38,7 @@ class SupplyCommand(private val messages: Messages) {
         val block = sender.getTargetBlockExact(6)
 
         if (block == null || !block.isDispenser) {
-            sender.sendMessage("You are not looking at a dispenser or dropper.")
+            sender.sendMessage(messages.commandWrongBlock)
             return
         }
 
@@ -49,13 +49,13 @@ class SupplyCommand(private val messages: Messages) {
             container.set(EndlessDispense.SUPPLY_KEY, PersistentDataType.BYTE, 1.toByte())
             state.update()
             Refiller.refillInventory(state.inventory)
-            sender.sendMessage("§e[EndlessDispense] §fDispenser is now §aEndless§f!")
+            sender.sendActionBar(messages.supplyEnabled)
             sender.playSound(block.location, Sound.BLOCK_NOTE_BLOCK_CHIME, 1.0f, 1.2f)
         } else {
             container.remove(EndlessDispense.SUPPLY_KEY)
             state.update()
             Refiller.resetInventoryStacks(block)
-            sender.sendMessage("§e[EndlessDispense] §fDispenser is no longer §cEndless§f.")
+            sender.sendActionBar(messages.supplyDisabled)
             sender.playSound(block.location, Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 0.8f)
         }
     }

@@ -1,7 +1,7 @@
 package me.minoneer.bukkit.endlessdispense
 
-import org.bukkit.ChatColor
-import org.bukkit.ChatColor.DARK_BLUE
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Material
 import org.bukkit.Tag
 import org.bukkit.block.Block
@@ -21,7 +21,7 @@ private val SIGN_LOCATIONS: Collection<BlockFace> = EnumSet.of(
 )
 const val KEYWORD = "Supply"
 const val SUPPLY_KEY = "[Supply]"
-val COLORED_SUPPLY_KEY = "$DARK_BLUE${SUPPLY_KEY}"
+const val COLORED_SUPPLY_KEY = "§1[Supply]"
 
 
 val Block.isDispenser: Boolean
@@ -107,8 +107,7 @@ private val Block.isCeilingHangingSign: Boolean get() = Tag.CEILING_HANGING_SIGN
 private val Block.isWallHangingSign: Boolean get() = Tag.WALL_HANGING_SIGNS.isTagged(type)
 
 fun String.stripColor(): String {
-    val colorCoded = ChatColor.translateAlternateColorCodes('&', this)
-    return ChatColor.stripColor(colorCoded)!!
+    return PlainTextComponentSerializer.plainText().serialize(LegacyComponentSerializer.legacyAmpersand().deserialize(this))
 }
 
 fun SignChangeEvent.getFirstLine(): String = getLine(0) ?: ""

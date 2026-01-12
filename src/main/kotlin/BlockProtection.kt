@@ -19,7 +19,7 @@ class BlockProtection(private val messages: Messages) : Listener {
 
             if (block.isEndless()) {
                 event.isCancelled = true
-                event.player.sendMessage(messages.denyInventoryAccess)
+                event.player.sendActionBar(messages.denyInventoryAccess)
             }
         }
     }
@@ -32,10 +32,10 @@ class BlockProtection(private val messages: Messages) : Listener {
         if (!player.hasPermission(EndlessDispense.DESTROY)) {
             if (block.isEndless()) {
                 event.isCancelled = true
-                player.sendMessage(messages.denyDestroySupplier)
+                player.sendActionBar(messages.denyDestroySupplier)
             } else if (block.isSupplySign) {
                 event.isCancelled = true
-                player.sendMessage(messages.denyDestroySign)
+                player.sendActionBar(messages.denyDestroySign)
             }
         }
     }
@@ -48,7 +48,7 @@ class BlockProtection(private val messages: Messages) : Listener {
         val block = event.sign.block
         if (block.isSupplySign && !player.hasPermission(EndlessDispense.CREATE)) {
             event.isCancelled = true
-            player.sendMessage(messages.denyEditSign)
+            player.sendActionBar(messages.denyEditSign)
         }
     }
 
@@ -59,7 +59,7 @@ class BlockProtection(private val messages: Messages) : Listener {
 
         if (firstLine.equals(SUPPLY_KEY, ignoreCase = true) && !player.hasPermission(EndlessDispense.CREATE)) {
             event.isCancelled = true
-            player.sendMessage(messages.denyCreateSign)
+            player.sendActionBar(messages.denyCreateSign)
         }
     }
 }

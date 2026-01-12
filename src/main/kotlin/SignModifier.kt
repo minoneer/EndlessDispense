@@ -19,7 +19,7 @@ class SignModifier(private val messages: Messages) : Listener {
             // Cancel the sign creation and suggest the command
             event.isCancelled = true
             event.block.breakNaturally()
-            player.sendMessage("§e[EndlessDispense] §fPlease use §a/supply on§f while looking at the dispenser instead of using signs.")
+            player.sendMessage(messages.suggestCommand)
         }
     }
 
