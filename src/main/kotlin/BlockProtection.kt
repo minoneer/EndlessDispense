@@ -1,12 +1,10 @@
 package me.minoneer.bukkit.endlessdispense
 
-import io.papermc.paper.event.player.PlayerOpenSignEvent
 import org.bukkit.block.BlockState
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
-import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 
 class BlockProtection(private val messages: Messages) : Listener {
@@ -33,33 +31,7 @@ class BlockProtection(private val messages: Messages) : Listener {
             if (block.isEndless()) {
                 event.isCancelled = true
                 player.sendActionBar(messages.denyDestroySupplier)
-            } else if (block.isSupplySign) {
-                event.isCancelled = true
-                player.sendActionBar(messages.denyDestroySign)
             }
-        }
-    }
-
-    // Protect legacy supply signs while we still use them for conversion
-
-    @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    fun onSignEdit(event: PlayerOpenSignEvent) {
-        val player = event.player
-        val block = event.sign.block
-        if (block.isSupplySign && !player.hasPermission(EndlessDispense.CREATE)) {
-            event.isCancelled = true
-            player.sendActionBar(messages.denyEditSign)
-        }
-    }
-
-    @EventHandler
-    fun onSignChange(event: SignChangeEvent) {
-        val player = event.player
-        val firstLine = event.getFirstLine().stripColor()
-
-        if (firstLine.equals(SUPPLY_KEY, ignoreCase = true) && !player.hasPermission(EndlessDispense.CREATE)) {
-            event.isCancelled = true
-            player.sendActionBar(messages.denyCreateSign)
         }
     }
 }

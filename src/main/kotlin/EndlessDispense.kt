@@ -1,6 +1,8 @@
 package me.minoneer.bukkit.endlessdispense
 
 import io.github.kraftlin.command.paper.registerKraftlinCommands
+import me.minoneer.bukkit.endlessdispense.legacy.Legacy
+import me.minoneer.bukkit.endlessdispense.legacy.SupplySignListener
 import org.bukkit.Bukkit
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
@@ -16,6 +18,7 @@ class EndlessDispense : JavaPlugin() {
     override fun onEnable() {
         SUPPLY_KEY = NamespacedKey(this, "infinite_supply")
         val messages = loadMessages()
+        Legacy.messages = messages
         val refiller = Refiller()
         registerEvents(messages, refiller)
         logger.info("${pluginMeta.displayName} by minoneer activated.")
@@ -33,7 +36,7 @@ class EndlessDispense : JavaPlugin() {
         val plugin = this
         with(Bukkit.getPluginManager()) {
             registerEvents(refiller, plugin)
-            registerEvents(SignModifier(messages), plugin)
+            registerEvents(SupplySignListener(messages), plugin)
             registerEvents(BlockProtection(messages), plugin)
         }
         registerKraftlinCommands(SupplyCommand(messages).buildCommand())

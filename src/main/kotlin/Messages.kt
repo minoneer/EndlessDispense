@@ -33,21 +33,6 @@ class Messages(path: Path) : AbstractConfig(wrapConfig(path)) {
         default = "<red>You are not allowed to destroy blocks in Endless mode."
     )
 
-    val denyDestroySign by configComponent(
-        path = "denied.destroy-sign",
-        default = "<red>You are not allowed to destroy supply signs."
-    )
-
-    val denyCreateSign by configComponent(
-        path = "denied.create-sign",
-        default = "<red>You are not allowed to create supply signs."
-    )
-
-    val denyEditSign by configComponent(
-        path = "denied.edit-sign",
-        default = "<red>You are not allowed to edit supply signs."
-    )
-
     val supplyEnabled by configComponent(
         path = "command.supply-enabled",
         default = "<white>Dispenser is now <green>Endless<white>!"
@@ -66,5 +51,10 @@ class Messages(path: Path) : AbstractConfig(wrapConfig(path)) {
     val suggestCommand by configComponent(
         path = "create.suggest-command",
         default = "<yellow>[EndlessDispense] <white>Please use <green><click:suggest_command:'/supply on'><hover:show_text:'Click to suggest command'>/supply on</hover></click><white> while looking at the dispenser instead of using signs."
+    )
+
+    val migrated by configComponent(
+        path = "migration.success",
+        default = "<yellow>[EndlessDispense] <white>Legacy dispenser migrated to modern system. Sign removed."
     )
 }

@@ -3,7 +3,9 @@ package me.minoneer.bukkit.endlessdispense
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
+import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockDispenseEvent
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
@@ -18,6 +20,15 @@ class Refiller : Listener {
         if (event.block.isEndless()) {
             val inventory = (event.block.state as? InventoryHolder)?.inventory ?: return
             refillInventory(inventory)
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    fun onBlockBreak(event: BlockBreakEvent) {
+        val block = event.block
+        if (block.isEndless()) {
+            resetInventoryStacks(block)
+            event.isDropItems = false
         }
     }
 
