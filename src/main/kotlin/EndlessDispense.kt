@@ -15,7 +15,7 @@ class EndlessDispense : JavaPlugin() {
         val messages = loadMessages()
         val refiller = Refiller()
         registerEvents(messages, refiller)
-        logger.info("${description.fullName} by minoneer activated.")
+        logger.info("${pluginMeta.displayName} by minoneer activated.")
     }
 
     private fun loadMessages(): Messages {
@@ -36,6 +36,6 @@ class EndlessDispense : JavaPlugin() {
     }
 
     override fun onDisable() {
-        logger.info("${description.fullName} by minoneer deactivated.")
+        logger.info("${pluginMeta.displayName} by minoneer deactivated.")
     }
 }
