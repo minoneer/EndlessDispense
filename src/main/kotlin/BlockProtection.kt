@@ -17,7 +17,7 @@ class BlockProtection(private val messages: Messages) : Listener {
         if (inventoryHolder is BlockState) {
             val block = inventoryHolder.block
 
-            if (block.hasSupplySign()) {
+            if (block.isEndless()) {
                 event.isCancelled = true
                 event.player.sendMessage(messages.denyInventoryAccess)
             }
@@ -30,7 +30,7 @@ class BlockProtection(private val messages: Messages) : Listener {
         val player = event.player
 
         if (!player.hasPermission(EndlessDispense.DESTROY)) {
-            if (block.hasSupplySign()) {
+            if (block.isEndless()) {
                 event.isCancelled = true
                 player.sendMessage(messages.denyDestroySupplier)
             } else if (block.isSupplySign) {

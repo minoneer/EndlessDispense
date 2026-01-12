@@ -14,8 +14,8 @@ class Refiller : Listener {
 
     @EventHandler
     fun onBlockDispense(event: BlockDispenseEvent) {
-        if (event.block.hasSupplySign()) {
-            val inventory = (event.block.state as InventoryHolder).inventory
+        if (event.block.isEndless()) {
+            val inventory = (event.block.state as? InventoryHolder)?.inventory ?: return
             refillInventory(inventory)
         }
     }

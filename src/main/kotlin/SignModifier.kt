@@ -42,7 +42,7 @@ class SignModifier(private val messages: Messages, private val refiller: Refille
         val block = event.block
         if (block.isSupplySign) {
             resetBlockStacks(block.getAttachedTo())
-        } else if (block.hasSupplySign()) {
+        } else if (block.isEndless()) {
             resetBlockStacks(block)
         }
     }

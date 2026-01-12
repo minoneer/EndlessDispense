@@ -1,6 +1,7 @@
 package me.minoneer.bukkit.endlessdispense
 
 import org.bukkit.Bukkit
+import org.bukkit.NamespacedKey
 import org.bukkit.permissions.Permission
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -9,9 +10,11 @@ class EndlessDispense : JavaPlugin() {
     companion object {
         val CREATE = Permission("endlessdispense.create")
         val DESTROY = Permission("endlessdispense.destroy")
+        lateinit var SUPPLY_KEY: NamespacedKey
     }
 
     override fun onEnable() {
+        SUPPLY_KEY = NamespacedKey(this, "infinite_supply")
         val messages = loadMessages()
         val refiller = Refiller()
         registerEvents(messages, refiller)
