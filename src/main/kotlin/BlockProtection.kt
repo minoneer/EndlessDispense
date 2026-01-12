@@ -1,5 +1,6 @@
 package me.minoneer.bukkit.endlessdispense
 
+import io.papermc.paper.event.player.PlayerOpenSignEvent
 import org.bukkit.block.BlockState
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -7,7 +8,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.SignChangeEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
-import org.bukkit.event.player.PlayerSignOpenEvent
 
 class BlockProtection(private val messages: Messages) : Listener {
 
@@ -41,7 +41,7 @@ class BlockProtection(private val messages: Messages) : Listener {
     }
 
     @EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-    fun onSignEdit(event: PlayerSignOpenEvent) {
+    fun onSignEdit(event: PlayerOpenSignEvent) {
         val player = event.player
         val block = event.sign.block
         if (block.isSupplySign && !player.hasPermission(EndlessDispense.CREATE)) {
