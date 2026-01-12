@@ -1,7 +1,7 @@
 package me.minoneer.bukkit.endlessdispense
 
-import de.devsylum.kconfig.AbstractConfig
-import de.devsylum.kconfig.bukkit.wrapConfig
+import io.github.kraftlin.config.AbstractConfig
+import io.github.kraftlin.config.paper.wrapConfig
 import java.nio.file.Path
 
 class Messages(path: Path) : AbstractConfig(wrapConfig(path)) {

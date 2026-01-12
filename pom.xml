@@ -128,9 +128,9 @@
             <version>${paper.version}</version>
         </dependency>
         <dependency>
-            <groupId>de.devsylum.kconfig</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8</version>
+            <groupId>io.github.kraftlin</groupId>
+            <artifactId>kraftlin-config-paper</artifactId>
+            <version>0.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
