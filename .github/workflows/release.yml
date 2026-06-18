@@ -23,11 +23,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Set version from tag
+      - name: Verify pom version matches tag
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          echo "Building release version $VERSION"
-          mvn -B versions:set -DnewVersion="$VERSION" -DgenerateBackupPoms=false
+          POM_VERSION=$(mvn -q -DforceStdout help:evaluate -Dexpression=project.version)
+          echo "tag=$VERSION pom=$POM_VERSION"
+          [ "$VERSION" = "$POM_VERSION" ] || { echo "::error::Tag $VERSION does not match pom version $POM_VERSION. Bump the pom in a release commit before tagging."; exit 1; }
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
