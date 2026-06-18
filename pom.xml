@@ -125,10 +125,6 @@
             <id>bungeecord-repo</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
-        <repository>
-            <id>kconfig</id>
-            <url>https://maven.pkg.github.com/minoneer/kconfig</url>
-        </repository>
     </repositories>
 
 </project>
