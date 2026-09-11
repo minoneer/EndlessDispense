@@ -21,7 +21,7 @@ class EndlessDispense : JavaPlugin() {
         val messages = loadMessages()
         Legacy.config = config
         Legacy.messages = messages
-        val refiller = Refiller()
+        val refiller = Refiller(this)
         registerEvents(messages, refiller)
         logger.info("${pluginMeta.displayName} by minoneer activated.")
     }
