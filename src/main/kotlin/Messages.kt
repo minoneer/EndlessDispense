@@ -13,7 +13,7 @@ class Messages(path: Path) : AbstractConfig(wrapConfig(path)) {
     private val legacy = LegacyComponentSerializer.legacyAmpersand()
 
     private fun configComponent(path: String, default: String): ReadOnlyProperty<Any?, Component> {
-        val rawString: String by config(path = path, default = default, translateColorCodes = false)
+        val rawString: String by config(path = path, default = default)
         return ReadOnlyProperty { _, _ ->
             if (rawString.contains("&") && !rawString.contains("<")) {
                 legacy.deserialize(rawString)
