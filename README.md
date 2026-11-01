@@ -12,6 +12,8 @@ including:
 * Different items for each slot
 * Special dispense behavior, e.g., the shooting of projectiles
 
+Developed for and used on [Minecraft Asylum](https://minecraft-asylum.de/), a German survival server since 2012.
+
 ## Usage
 
 Setting up dispensers with infinite supply is easy.
@@ -25,7 +27,7 @@ To disable the endless mode, look at the block and type `/supply off`.
 
 ### Legacy Support
 
-If you are upgrading from an older version of EndlessDispense, your existing sign-based setups are still supported. The plugin will automatically migrate them to the new internal data system and remove the sign the first time they are interacted with (dispensing, opening inventory, or attempting to break).
+If you are upgrading from an older version of EndlessDispense, your existing sign-based setups can be migrated. Migration is off by default: set `migrate_legacy: true` in `plugins/EndlessDispense/config.yml` and restart the server. The plugin then migrates each sign-based dispenser to the new internal data system and removes the sign the first time it is interacted with (dispensing, opening inventory, or attempting to break). While migration is off, sign-based dispensers behave like normal dispensers.
 
 ## Commands & Permissions
 
