@@ -19,11 +19,11 @@ Developed for and used on [Minecraft Asylum](https://minecraft-asylum.de/), a Ge
 Setting up dispensers with infinite supply is easy.
 
 1. Fill the dispenser or dropper as you would normally.
-2. Look at the block and type `/supply on`.
+2. Look at the block and type `/supply` (or `/supply on`).
 
 That's it. You can now activate the dispenser with normal means, e.g., a button. When in endless mode, the inventory is protected and cannot be opened by unauthorized players.
 
-To disable the endless mode, look at the block and type `/supply off`.
+To disable the endless mode, look at the block and type `/supply` again (or `/supply off`).
 
 ### Legacy Support
 
@@ -33,6 +33,7 @@ If you are upgrading from an older version of EndlessDispense, your existing sig
 
 | Command       | Description                                             | Permission               |
 |---------------|---------------------------------------------------------|--------------------------|
+| `/supply`     | Toggles endless mode for the block you are looking at.  | `endlessdispense.create` |
 | `/supply on`  | Enables endless mode for the block you are looking at.  | `endlessdispense.create` |
 | `/supply off` | Disables endless mode for the block you are looking at. | `endlessdispense.create` |
 

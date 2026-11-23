@@ -21,6 +21,10 @@ class SupplyCommand(private val messages: Messages) {
         requiresPermission(EndlessDispense.CREATE)
         requiresPlayer()
 
+        executesPlayer { player, _ ->
+            toggleDispenser(player)
+        }
+
         literal("on") {
             executesPlayer { player, _ ->
                 toggleDispenser(player, true)
@@ -34,7 +38,8 @@ class SupplyCommand(private val messages: Messages) {
         }
     }
 
-    fun toggleDispenser(sender: Player, infinite: Boolean) {
+    /** [infinite] null flips the current mode. */
+    fun toggleDispenser(sender: Player, infinite: Boolean? = null) {
         val block = sender.getTargetBlockExact(6)
 
         if (block == null || !block.isDispenser) {
@@ -42,10 +47,11 @@ class SupplyCommand(private val messages: Messages) {
             return
         }
 
+        val enable = infinite ?: !block.isEndless(sender)
         val state = block.state as Container
         val container = state.persistentDataContainer
 
-        if (infinite) {
+        if (enable) {
             container.set(EndlessDispense.SUPPLY_KEY, PersistentDataType.BYTE, 1.toByte())
             state.update()
             Refiller.refillInventory(state.inventory)
